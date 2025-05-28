@@ -1,11 +1,17 @@
-import React from 'react'
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import UserLayout from "./components/Layout/UserLayout";
 
 const App = () => {
   return (
-    <div>
-      <h1 className="text-3xl font-bold underline">Hello world!</h1>
-    </div>
+    <BrowserRouter>                                 {/* On utilise BrowserRouter pour gérer les routes. Les routes servent à naviguer entre différentes pages de l'application. Par exemple on pourrait avoir une route pour la page d'accueil, une autre pour la page de contact, etc. */}
+      
+      <Routes>
+         <Route path="/" element={<UserLayout/>}>   { /* La route "/" correspond à la page d'accueil de l'application. Le composant UserLayout sera affiché lorsque l'utilisateur visitera cette page. */}
+         {/* User Layout */}
+         </Route>
+          <Route>{ /* Admin Layout */}</Route>
+      </Routes>
+    </BrowserRouter>
   );
 };
-
 export default App;
