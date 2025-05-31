@@ -3,12 +3,12 @@ import { Link } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 
 const NewArrivals = () => {
-  const scrollRef = useRef(null);
-  const [isDragging, setIsDragging] = useState(false);
-  const [startX, setStartX] = useState(0);
-  const [scrollLeft, setScrollLeft] = useState(false);
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(true);
+  const scrollRef = useRef(null);                                  // Ici pour faire défiler le contenu horizontalement en utilisant la référence du conteneur. La référence est utilisée pour accéder aux propriétés de défilement du conteneur.
+  const [isDragging, setIsDragging] = useState(false);             // Pour suivre si l'utilisateur est en train de faire glisser le contenu. / Pour checker si le conteneur peut être glissé ou non.
+  const [startX, setStartX] = useState(0);                         // Pour stocker la position X de départ du curseur lors du début du glissement. / C'est le point de départ du x-axis (du glissement) quand l'utilisateur saisit et commence à faire glisser le conteneur.
+  const [scrollLeft, setScrollLeft] = useState(false);             // Pour stocker la position de défilement initiale du conteneur avant le glissement./ C'est la position initial du conteneur avant que l'utilisateur ne commence à faire glisser le contenu.
+  const [canScrollLeft, setCanScrollLeft] = useState(false);       // Pour savoir si le contenu peut être défilé vers la gauche.
+  const [canScrollRight, setCanScrollRight] = useState(true);      // Pour savoir si le contenu peut être défilé vers la droite.
 
   const newArrivals = [
     {
