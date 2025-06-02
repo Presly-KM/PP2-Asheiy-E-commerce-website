@@ -6,10 +6,19 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Handle registration logic here
+    console.log("Login details:", { email, password });
+  };
+
   return (
     <div className="flex">
       <div className="w-full md:w-1/2 flex flex-col justify-center items-center p-8 md:p-12">
-        <form className="w-full max-w-md bg-white p-8 rounded-lg border shadow-sm">
+        <form
+          onSubmit={handleSubmit}
+          className="w-full max-w-md bg-white p-8 rounded-lg border shadow-sm"
+        >
           <div className="flex justify-center mb-6">
             <h2 className="text-xl font-medium">ScottMall's</h2>
           </div>
@@ -54,13 +63,13 @@ const Login = () => {
       </div>
 
       <div className="hidden md:block w-1/2 bg-gray-800">
-       <div className="h-full flex flex-col justify-center items-center">
-        <img 
-          src={login} 
-          alt="Login to Account" 
-          className="h-[750px] w-full object-cover" 
-        />
-       </div>
+        <div className="h-full flex flex-col justify-center items-center">
+          <img
+            src={login}
+            alt="Login to Account"
+            className="h-[750px] w-full object-cover"
+          />
+        </div>
       </div>
     </div>
   );
