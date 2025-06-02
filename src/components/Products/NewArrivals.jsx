@@ -134,16 +134,10 @@ const NewArrivals = () => {
       setCanScrollLeft(leftScroll > 0);                              // On peut scroller vers la gauche si le scrollLeft est supérieur à 0. Cela signifie que l'utilisateur a déjà fait défiler le contenu vers la droite et peut revenir en arrière. // Ici on met à jour l'état canScrollLeft à "true" ou "false" afin de d'activer ou désactiver l'icone gauche. / Ici la variable sera "true" si scrolleLeft est supérieur à 0, ce qui signifie que l'utilisateur a déjà fait défiler le contenu vers la droite et peut revenir en arrière. Sinon, elle sera "false", ce qui désactive l'icône de défilement vers la gauche.
       setCanScrollRight(rightScrollable);                            // On peut scroller vers la droite si le contenu est plus large que ce qui est visible. Cela signifie qu'il y a du contenu supplémentaire à droite qui peut être défilé. // Il s'agissait ici de verifier si l'utilisateur a atteint la fin du contenu défilable. le contenu total à défiler (y compris ce qui n'est pas visible) est de 3854 pixels. Ainsi on additione la position actuelle du défilement (leftScroll "sa valeur évolue avec le défilement enclenché par l'utilisateur") à la largeur visible du conteneur (clientWidth "dont la valeur est constamment égale à 1536"). Si la somme des deux est inférieure à la largeur totale du contenu (scrollWidth "dont la valeur est constamment égale à 3854"), cela signifie qu'il y a encore du contenu à droite qui peut être défilé. Dans ce cas setCanScrollLeft s'applique et agit pour mettre à jour l'état canScrollRight à "true", ce qui active l'icône de défilement vers la droite. Sinon (Si la somme est inférieure à la largeur totale du contenu "3854") alors on met à jour l'état canScrollRight à "false", ce qui désactive l'icône de défilement vers la droite.
     }
-
-   
-    console.log({
-      scrollLeft: container.scrollLeft,
-      clientWidth: container.clientWidth,
-      containerScrollWidth: container.scrollWidth,
-      offsetLeft : scrollRef.current.offsetLeft,
-    });
   };
-                                                                 // UseEffect sert à gérer les effets de bord dans les composants fonctionnels. Il est exécuté après le rendu du composant et peut être utilisé pour effectuer des opérations telles que la récupération de données, l'ajout d'écouteurs d'événements, ou la mise à jour du DOM.
+
+
+  // UseEffect sert à gérer les effets de bord dans les composants fonctionnels. Il est exécuté après le rendu du composant et peut être utilisé pour effectuer des opérations telles que la récupération de données, l'ajout d'écouteurs d'événements, ou la mise à jour du DOM.
   useEffect(() => {                                              // Ici on utilise useEffect pour ajouter un écouteur d'événement de défilement au conteneur. Cela permet de mettre à jour les boutons de défilement en fonction de la position actuelle du défilement.
     const container = scrollRef.current;                         // On récupère la référence (actuelle ?) du conteneur de défilement. current est utilisé pour accéder à l'élément DOM réel auquel la référence est attachée. Ainsi la référence scrollRef.current pointe vers l'élément DOM du conteneur de défilement.
     if (container) {                                             // Ici la référence (actuelle ?) scrollRef.current est vérifiée pour s'assurer qu'elle est définie avant d'ajouter l'écouteur d'événement de défilement. Cela évite les erreurs si la référence n'est pas encore attachée à un élément DOM.
