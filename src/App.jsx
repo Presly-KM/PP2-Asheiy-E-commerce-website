@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import UserLayout from "./components/Layout/UserLayout";
 import Home from "./pages/Home";
 import { Toaster } from "sonner";
+import Login from "./pages/Login";
 
 const App = () => {
   return (
@@ -10,6 +11,7 @@ const App = () => {
       <Routes>
          <Route path="/" element={<UserLayout/>}>   { /* La route "/" correspond à la page d'accueil de l'application. Le composant UserLayout sera affiché lorsque l'utilisateur visitera cette page. */}
          <Route index element={<Home />} />         {/* La route index correspond à la page d'accueil de l'application. Elle est généralement utilisée pour afficher le contenu principal de l'application. */}
+         <Route path="login" element={<Login />} /> {/* La route "login" correspond à la page de connexion de l'application. Lorsque l'utilisateur visitera cette page, le composant Login sera affiché. */}
          </Route>
           <Route>{ /* Admin Layout */}</Route>
       </Routes>
