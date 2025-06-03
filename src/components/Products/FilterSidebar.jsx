@@ -1,8 +1,9 @@
 import  { useState, useEffect } from "react";          // On importe useState et useEffect de React pour gérer l'état des filtres et les effets secondaires.
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
                                                         
 const FilterSidebar = () => {
   const [searchParams, setSearchParams] = useSearchParams(); // Ici on utilise useSearchParams pour obtenir et mettre à jour les paramètres de recherche dans l'URL. Ainsi, on peut filtrer les produits en fonction des paramètres de recherche. Par exemple, si l'utilisateur sélectionne un filtre, on peut mettre à jour les paramètres de recherche pour refléter ce filtre dans l'URL. Cela permet également de conserver l'état des filtres lors de la navigation entre les pages.
+  const navigate = useNavigate()                              // On veut aussi se rendre sur le nouveau Url avec les nouveaux paramètres de recherche.  "useNavigate" est utilisé pour naviguer vers une nouvelle URL lorsque les filtres sont mis à jour. Cela permet de mettre à jour l'URL sans recharger la page, ce qui est utile pour les applications React basées sur le routage.
   const [filters, setFilters] = useState({
     category: "",
     gender: "",
@@ -85,6 +86,7 @@ const FilterSidebar = () => {
       newFilters[name] = value;                     // Si l'élément n'est pas une case à cocher, on met simplement à jour la valeur du filtre avec la nouvelle valeur autrement dit, on assigne simplement la valeur à la clé correspondante dans l'objet des filtres. 
     }
     setFilters(newFilters);                         // On met à jour l'état des filtres avec les nouveaux filtres.
+    updateURLParams(newFilters);                    // On appelle la fonction updateURLParams pour mettre à jour les paramètres de recherche dans l'URL avec les nouveaux filtres. Cela permet de conserver l'état des filtres lors de la navigation entre les pages et de partager les filtres via l'URL.
   };
    
   const updateURLParams = (newFilters) => {                   // On crée une fonction pour mettre à jour les paramètres de recherche dans l'URL selon les filtres sélectionnés par l'utilisateur. Cette fonction sera appelée chaque fois que l'utilisateur modifie un filtre.
@@ -98,7 +100,8 @@ const FilterSidebar = () => {
       }
    });
     setSearchParams(params);                                  // Avec le useState On met à jour les paramètres de recherche dans l'URL avec les nouveaux filtres.
-};
+    navigate(`?${params.toString()}`);                        // On utilise useNavigate pour naviguer vers la nouvelle URL avec les paramètres de recherche mis à jour. Cela permet de mettre à jour l'URL sans recharger la page, ce qui est utile pour les applications React basées sur le routage. La valeur des paramètres de l'URL sera donc qqchose comme ça // ?category=Bottom+Wear&size=XS%2CS   2C est ici la version encodé de la virgule dans l'URL.
+  };
         return (
     <div className="p-4">
       <h3 className="text-xl font-medium text-gray-800 mb-4">Filter</h3>
@@ -113,6 +116,7 @@ const FilterSidebar = () => {
               name="category"
               value={category}
               onChange={handleFilterChange}
+              checked={filters.category === category} // On vérifie si la catégorie actuelle est sélectionnée
               className="mr-2 h-4 w-4 text-blue-500 focus:ring-blue-400 border-gray-300"
             />
             <span className="text-gray-700">{category}</span>
@@ -130,6 +134,7 @@ const FilterSidebar = () => {
               name="gender"
               value={gender}
               onChange={handleFilterChange}
+              checked={filters.gender === gender} // On vérifie si le genre actuel est sélectionné
               className="mr-2 h-4 w-4 text-blue-500 focus:ring-blue-400 border-gray-300"
             />
             <span className="text-gray-700">{gender}</span>
@@ -147,8 +152,10 @@ const FilterSidebar = () => {
            name="color" 
            value={color}
            onClick={handleFilterChange}
-           className="w-8 h-8 rounded-full border border-gray-300 cursor-pointer transition 
-           hover:scale-105"
+           className={`w-8 h-8 rounded-full border border-gray-300 cursor-pointer transition 
+           hover:scale-105 ${
+            filters.color === color ? "ring-2 ring-blue-500" : ""
+          }`}
               style={{ backgroundColor: color.toLowerCase() }}>
            </button>
           ))}
@@ -165,6 +172,7 @@ const FilterSidebar = () => {
               name="size"
               value={size}
               onChange={handleFilterChange}
+              checked={filters.size.includes(size)} // On vérifie si la taille actuelle est sélectionnée
               className="mr-2 h-4 w-4 text-blue-500 focus:ring-blue-400 border-gray-300"
             />
             <span className="text-gray-700">{size}</span>
@@ -182,6 +190,7 @@ const FilterSidebar = () => {
               name="material"
               value={material}
               onChange={handleFilterChange}
+              checked={filters.material.includes(material)} // On vérifie si le matériau actuel est sélectionné
               className="mr-2 h-4 w-4 text-blue-500 focus:ring-blue-400 border-gray-300"
             />
             <span className="text-gray-700">{material}</span>
@@ -199,6 +208,7 @@ const FilterSidebar = () => {
               name="brand"
               value={brand}
               onChange={handleFilterChange}
+              checked={filters.brand.includes(brand)} // On vérifie si la marque actuelle est sélectionnée
               className="mr-2 h-4 w-4 text-blue-500 focus:ring-blue-400 border-gray-300"
             />
             <span className="text-gray-700">{brand}</span>
