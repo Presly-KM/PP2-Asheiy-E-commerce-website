@@ -77,19 +77,29 @@ const FilterSidebar = () => {
   
     if (type === "checkbox") {                       // Si l'élément est une case à cocher, on vérifie si la case est cochée ou non.
        if (checked) {                                 // Si la case est cochée, on ajoute la valeur au tableau correspondant dans les filtres.
-        newFilters[name] = [...(newFilters[name] || []), value];  // On utilise la syntaxe de décomposition pour ajouter la valeur au tableau existant. Si le tableau n'existe pas encore, on initialise un tableau vide.
-       } else {                                      // Si la case n'est pas cochée, on filtre le tableau pour supprimer la valeur.
-        newFilters[name] = newFilters[name].filter((item) => item !== value); // On utilise la méthode filter pour créer un nouveau tableau sans la valeur sélectionnée.    
+        newFilters[name] = [...(newFilters[name] || []), value];  // On utilise la syntaxe de décomposition pour ajouter la valeur au tableau existant. Si le tableau n'existe pas encore, on initialise un tableau vide. On ajoute la nouvelle valeur à l'élément existant par exemple si la taille "XS" est déja présente alors on ajoute la nouvelle taille au tableau des tailles comme ceci : ["XS", "S"].
+       } else {                                      // Si la case n'est pas cochée, on filtre le tableau pour supprimer la valeur du tableau.
+        newFilters[name] = newFilters[name].filter((item) => item !== value); // On utilise la méthode filter pour créer un nouveau tableau sans la valeur sélectionnée.    Par exemple si on a ["XS", "S"] cochés et qu'on décoche "S", alors le tableau devient ["XS"].
       }
     } else {
-      newFilters[name] = value;                     // Si l'élément n'est pas une case à cocher, on met simplement à jour la valeur du filtre avec la nouvelle valeur.
+      newFilters[name] = value;                     // Si l'élément n'est pas une case à cocher, on met simplement à jour la valeur du filtre avec la nouvelle valeur autrement dit, on assigne simplement la valeur à la clé correspondante dans l'objet des filtres. 
     }
     setFilters(newFilters);                         // On met à jour l'état des filtres avec les nouveaux filtres.
-    console.log(newFilters);                        // On affiche les nouveaux filtres dans la console pour le débogage.
   };
-                                 // Dans le cas ou j'ia apr exemple sélectionné les 3 premiers éléments de la liste des tailles. Aussitot que je décoche par exemple la taille "M" ca devrait etre supprimé du tableau. Si je décoche le reste le tableau doit etre vide.
-
-  return (
+   
+  const updateURLParams = (newFilters) => {                   // On crée une fonction pour mettre à jour les paramètres de recherche dans l'URL selon les filtres sélectionnés par l'utilisateur. Cette fonction sera appelée chaque fois que l'utilisateur modifie un filtre.
+    const params = new URLSearchParams();                     // On crée une nouvelle instance de URLSearchParams pour manipuler les paramètres de recherche dans l'URL.
+    // {category: 'Top Wear', size: ['XS', 'S']}              // Nos nouveaux filtres contiendront des objets avec des informations similaires à celles affichées ci-contre.
+    Object.keys(newFilters).forEach((key) => {                // On parcourt les clés des nouveaux filtres pour les ajouter aux paramètres de recherche.}
+     if(Array.isArray(newFilters[key]) && newFilters[key].length > 0) { // On vérifie si la valeur du filtre est un tableau et s'il contient des éléments. Si c'est le cas, on ajoute la clé et la valeur au paramètre de recherche. On utilise Array.isArray pour vérifier si la valeur est un tableau et newFilters[key].length > 0 pour s'assurer que le tableau n'est pas vide.
+        params.append(key, newFilters[key].join(","));        // On utilise la méthode append pour ajouter la clé et la valeur au paramètre de recherche. On utilise la méthode join pour convertir le tableau en une chaîne de caractères séparée par des virgules. Par exemple, si on a ["XS", "S"], on les convertit en "XS,S".
+     } else if (newFilters[key]) {                            // Si la valeur du filtre n'est pas un tableau, on l'ajoute directement au paramètre de recherche.
+      params.append(key, newFilters[key]);                    // On utilise la méthode append pour ajouter la clé et la valeur au paramètre de recherche. Par exemple, si on a {category: 'Top Wear'}, on ajoute category=Top Wear aux paramètres de recherche. 
+      }
+   });
+    setSearchParams(params);                                  // Avec le useState On met à jour les paramètres de recherche dans l'URL avec les nouveaux filtres.
+};
+        return (
     <div className="p-4">
       <h3 className="text-xl font-medium text-gray-800 mb-4">Filter</h3>
 
@@ -129,7 +139,7 @@ const FilterSidebar = () => {
 
       {/*  Color Filter */}
       <div className="mb-6">
-       <label className="block text-gray-600 font-medium mb-2"></label>
+       <label className="block text-gray-600 font-medium mb-2">Color</label>
        <div className="flex flex-wrap gap-2">
          {colors.map((color) => (
            <button 
