@@ -3,7 +3,7 @@ import { useSearchParams } from "react-router-dom";
                                                         
 const FilterSidebar = () => {
   const [searchParams, setSearchParams] = useSearchParams(); // Ici on utilise useSearchParams pour obtenir et mettre à jour les paramètres de recherche dans l'URL. Ainsi, on peut filtrer les produits en fonction des paramètres de recherche. Par exemple, si l'utilisateur sélectionne un filtre, on peut mettre à jour les paramètres de recherche pour refléter ce filtre dans l'URL. Cela permet également de conserver l'état des filtres lors de la navigation entre les pages.
-  const [filter, setFilters] = useState({
+  const [filters, setFilters] = useState({
     category: "",
     gender: "",
     color: "",
@@ -72,17 +72,22 @@ const FilterSidebar = () => {
   }, [searchParams]);                                // On utilise useEffect pour mettre à jour les filtres lorsque les paramètres de recherche changent. Cela permet de synchroniser l'état des filtres avec les paramètres de l'URL.
 // L'URL doit se mettre a jour quand l'utilisateur sélectionne un filtre spécifique. Ainsi, crééons une fonction qui gère le changement de filtres
   const handleFilterChange = (e) => {                // On récupère le nom, la valeur et d'autres propriétés de l'élément qui a déclenché l'événement. On utilise e.target pour accéder à l'élément qui a déclenché l'événement.
-    const { name, value, checked, type  } = e.target;  // On utilise la décomposition pour extraire les propriétés de l'élément qui a déclenché l'événement.
-    let newFilters = { ...filter };                  // On crée une copie de l'état des filtres actuel pour éviter de modifier l'état directement.
+    const { name, value, checked, type } = e.target;  // On utilise la décomposition pour extraire les propriétés de l'élément qui a déclenché l'événement.
+    let newFilters = { ...filters };                  // On crée une copie de l'état des filtres actuel pour éviter de modifier l'état directement.
   
     if (type === "checkbox") {                       // Si l'élément est une case à cocher, on vérifie si la case est cochée ou non.
        if (checked) {                                 // Si la case est cochée, on ajoute la valeur au tableau correspondant dans les filtres.
-          newFilters[name] = [...(newFilters[name] || []), value];  // On utilise la syntaxe de décomposition pour ajouter la valeur au tableau existant. Si le tableau n'existe pas encore, on initialise un tableau vide.
+        newFilters[name] = [...(newFilters[name] || []), value];  // On utilise la syntaxe de décomposition pour ajouter la valeur au tableau existant. Si le tableau n'existe pas encore, on initialise un tableau vide.
        } else {                                      // Si la case n'est pas cochée, on filtre le tableau pour supprimer la valeur.
         newFilters[name] = newFilters[name].filter((item) => item !== value); // On utilise la méthode filter pour créer un nouveau tableau sans la valeur sélectionnée.    
+      }
+    } else {
+      newFilters[name] = value;                     // Si l'élément n'est pas une case à cocher, on met simplement à jour la valeur du filtre avec la nouvelle valeur.
+    }
+    setFilters(newFilters);                         // On met à jour l'état des filtres avec les nouveaux filtres.
+    console.log(newFilters);                        // On affiche les nouveaux filtres dans la console pour le débogage.
   };
-};
-  };
+                                 // Dans le cas ou j'ia apr exemple sélectionné les 3 premiers éléments de la liste des tailles. Aussitot que je décoche par exemple la taille "M" ca devrait etre supprimé du tableau. Si je décoche le reste le tableau doit etre vide.
 
   return (
     <div className="p-4">
@@ -112,7 +117,7 @@ const FilterSidebar = () => {
           <div key={gender} className="flex items-center mb-1">
             <input
               type="radio"
-              name="category"
+              name="gender"
               value={gender}
               onChange={handleFilterChange}
               className="mr-2 h-4 w-4 text-blue-500 focus:ring-blue-400 border-gray-300"
@@ -205,7 +210,7 @@ const FilterSidebar = () => {
   
           />
           <div className="flex justify-between text-gray-600 mt-2">
-            <span>$</span>
+            <span>$0</span>
             <span>${priceRange[1]}</span>
           </div>
       </div>
