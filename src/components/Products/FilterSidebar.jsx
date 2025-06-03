@@ -81,8 +81,8 @@ const FilterSidebar = () => {
        } else {                                      // Si la case n'est pas cochée, on filtre le tableau pour supprimer la valeur.
         newFilters[name] = newFilters[name].filter((item) => item !== value); // On utilise la méthode filter pour créer un nouveau tableau sans la valeur sélectionnée.    
   };
+};
   };
-
 
   return (
     <div className="p-4">
