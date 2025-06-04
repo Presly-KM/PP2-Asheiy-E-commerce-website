@@ -6,6 +6,8 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Profile from "./pages/Profile";
 import CollectionPage from "./pages/CollectionPage";
+import ProductDetails from "./components/Products/ProductDetails";
+import Checkout from "./components/Cart/Checkout";
 
 const App = () => {
   return (
@@ -18,6 +20,8 @@ const App = () => {
           <Route path="register" element={<Register />} />       {/* La route "register" correspond à la page d'inscription de l'application. Le composant Register est utilisé ici, mais il pourrait être remplacé par un composant d'inscription spécifique. */}
           <Route path="profile" element={<Profile />} />         {/* La route "profile" correspond à la page de profil de l'utilisateur. Le composant Profile sera affiché lorsque l'utilisateur visitera cette page. */}
           <Route path="collections/:collection" element={<CollectionPage />} /> {/* La route "collections/:collection" correspond à une page de collection spécifique. Le paramètre ":collection" est dynamique et peut être remplacé par le nom d'une collection spécifique. Le composant CollectionPage sera affiché lorsque l'utilisateur visitera cette page. */}
+          <Route path="product/:id" element={<ProductDetails />} /> {/* La route "product/:id" correspond à une page de détails d'un produit spécifique. Le paramètre ":id" est dynamique et peut être remplacé par l'identifiant d'un produit spécifique. Le composant ProductDetails sera affiché lorsque l'utilisateur visitera cette page. */}
+          <Route path="checkout" element={<Checkout />} />       {/* La route "checkout" correspond à la page de paiement. Le composant Checkout sera affiché lorsque l'utilisateur visitera cette page. */}
          </Route>
           <Route>{ /* Admin Layout */}</Route>
       </Routes>
