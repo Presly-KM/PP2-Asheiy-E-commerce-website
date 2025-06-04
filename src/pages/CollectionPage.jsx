@@ -24,11 +24,11 @@ const CollectionPage = () => {
   useEffect(() => {
     // Add event listener for clicks
     document.addEventListener("mousedown", handleClickOutside);
+    // Cleanup the event listener on component unmount
     return () => {
-      // Cleanup the event listener on component unmount
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  });
+  }, []);
 
   useEffect(() => {
     setTimeout(() => {
