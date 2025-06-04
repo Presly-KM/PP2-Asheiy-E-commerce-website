@@ -102,6 +102,15 @@ const FilterSidebar = () => {
     setSearchParams(params);                                  // Avec le useState On met à jour les paramètres de recherche dans l'URL avec les nouveaux filtres.
     navigate(`?${params.toString()}`);                        // On utilise useNavigate pour naviguer vers la nouvelle URL avec les paramètres de recherche mis à jour. Cela permet de mettre à jour l'URL sans recharger la page, ce qui est utile pour les applications React basées sur le routage. La valeur des paramètres de l'URL sera donc qqchose comme ça // ?category=Bottom+Wear&size=XS%2CS   2C est ici la version encodé de la virgule dans l'URL.
   };
+
+ const handlePriceChange = (e) => {                // On crée une fonction pour gérer le changement de la plage de prix.
+    const newPrice = e.target.value; // On récupère la nouvelle valeur de la plage de prix à partir de l'événement.
+    setPriceRange([0, newPrice]); // On met à jour l'état de la plage de prix avec la nouvelle valeur. On initialise le prix minimum à 0 et le prix maximum à la nouvelle valeur.   
+    const newFilters = { ...filters, minPrice: 0, maxPrice: newPrice }; // On crée une copie des filtres actuels et on met à jour le prix maximum avec la nouvelle valeur.  
+    setFilters(filters); // On met à jour l'état des filtres avec les nouveaux filtres.
+    updateURLParams(newFilters); // On appelle la fonction updateURLParams pour mettre à jour les paramètres de recherche dans l'URL avec les nouveaux filtres. Cela permet de conserver l'état des filtres lors de la navigation entre les pages et de partager les filtres via l'URL. 
+  };
+
         return (
     <div className="p-4">
       <h3 className="text-xl font-medium text-gray-800 mb-4">Filter</h3>
@@ -226,6 +235,8 @@ const FilterSidebar = () => {
           name="priceRange"
           min={0}
           max={100}
+          value={priceRange[1]}
+          onChange={handlePriceChange}
           className="w-full h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer"
   
           />
