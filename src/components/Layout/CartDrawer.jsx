@@ -1,7 +1,12 @@
 import { IoMdClose } from "react-icons/io"; // Importing the close icon from react-icons
 import CartContents from "../Cart/CartContents";
+import { useNavigate } from "react-router-dom"; // Importing useNavigate from react-router-dom to handle navigation
 
 const CartDrawer = ({ drawerOpen, toggleCartDrawer }) => {             // Ici on reçoit deux props : drawerOpen (un booléen qui indique si le tiroir du panier est ouvert ou fermé) et toggleCartDrawer (une fonction pour basculer l'état du tiroir du panier). les accolades ({}) sont utilisées pour déstructurer les props passées au composant CartDrawer. Cela permet d'accéder directement à drawerOpen et toggleCartDrawer sans avoir à écrire props.drawerOpen et props.toggleCartDrawer.
+  const navigate = useNavigate();                                      // Importing useNavigate from react-router-dom to handle navigation
+  const handleCheckout = () => {
+    navigate("/checkout");                                           // Navigating to the checkout page when the checkout button is clicked
+  }
   return (
     <div
       className={`fixed top-0 right-0 w-3/4 sm:w-1/2 md:w-[30rem] h-full bg-white shadow-lg transform transition-transform duration-300 flex flex-col z-50 ${ // Ici, on utilise des classes conditionnelles pour gérer le style du tiroir du panier. Si drawerOpen est "true", le tiroir est visible (translate-x-0), sinon il est caché (translate-x-full).
@@ -10,7 +15,7 @@ const CartDrawer = ({ drawerOpen, toggleCartDrawer }) => {             // Ici on
     >
       {/* Close Button */}
       <div className="flex justify-end p-4">
-        <button onClick={toggleCartDrawer}> {/* Ici, on utilise la fonction toggleCartDrawer pour fermer le tiroir du panier lorsque l'utilisateur clique sur le bouton de fermeture. */}
+        <button onClick={toggleCartDrawer}>                         {/* Ici, on utilise la fonction toggleCartDrawer pour fermer le tiroir du panier lorsque l'utilisateur clique sur le bouton de fermeture. */}
           <IoMdClose className="h-6 w-6 text-gray-600" />
         </button>
       </div>
@@ -22,8 +27,12 @@ const CartDrawer = ({ drawerOpen, toggleCartDrawer }) => {             // Ici on
 
       {/* Checkout button fixed at the bottom */}
       <div className="p-4 bg-white sticky bottom-0">
-        <button className="w-full bg-black text-white py-3 rounded-lg font-semibold hover:bg-gray-800 transition">
-            Checkout
+        <button 
+          onClick={handleCheckout}
+          className="w-full bg-black text-white py-3 rounded-lg font-semibold hover:bg-gray-800 
+          transition"
+        >
+          Checkout
         </button>
         <p className="text-sm tracking-tighter text-gray-500 mt-2 text-center">
             Shipping, taxes, and discount codes calculated at checkout
