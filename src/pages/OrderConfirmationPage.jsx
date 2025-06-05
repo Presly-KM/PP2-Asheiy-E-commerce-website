@@ -1,4 +1,3 @@
-import React from "react";
 const checkout = {
   _id: "12345",
   createdAt: new Date(),
@@ -30,6 +29,12 @@ const checkout = {
 };
 
 const OrderConfirmationPage = () => {
+const calculatedEstimatedDelivery = (createdAt) => {
+    const orderDate = new Date(createdAt);
+    orderDate.setDate(orderDate.getDate() + 10); // Adding 10 days for estimated delivery
+    return orderDate.toLocaleDateString();
+  };
+  
   return (
     <div className="max-w-4xl mx-auto p-6 bg-white">
       <h1 className="text-4xl font-bold text-center text-emerald-700 mb-8">
@@ -53,6 +58,7 @@ const OrderConfirmationPage = () => {
               <p className="text-emerald-700 text-sm">
                 Estimated Delivery: {""}
                 {calculatedEstimatedDelivery(checkout.createdAt)}
+
               </p>
             </div>
           </div>
