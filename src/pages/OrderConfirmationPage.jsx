@@ -29,12 +29,12 @@ const checkout = {
 };
 
 const OrderConfirmationPage = () => {
-const calculatedEstimatedDelivery = (createdAt) => {
+  const calculatedEstimatedDelivery = (createdAt) => {
     const orderDate = new Date(createdAt);
     orderDate.setDate(orderDate.getDate() + 10); // Adding 10 days for estimated delivery
     return orderDate.toLocaleDateString();
   };
-  
+
   return (
     <div className="max-w-4xl mx-auto p-6 bg-white">
       <h1 className="text-4xl font-bold text-center text-emerald-700 mb-8">
@@ -58,10 +58,33 @@ const calculatedEstimatedDelivery = (createdAt) => {
               <p className="text-emerald-700 text-sm">
                 Estimated Delivery: {""}
                 {calculatedEstimatedDelivery(checkout.createdAt)}
-
               </p>
             </div>
           </div>
+          {/* Ordered Items */}
+          <div className="mb-20">
+            {checkout.checkoutItems.map((item) => (
+              <div key={item.productId} className="flex items-center mb-4">
+                <img
+                  src={item.image}
+                  alt={item.name}
+                  className="w-16 h-16 object-cover rounded-md mr-4"
+                />
+                <div>
+                  <h4 className="text-md font-semibold">{item.name}</h4>
+                  <p className="text-sm text-gray-500">
+                    {item.color} | {item.size}
+                  </p>
+                </div>
+                <div className="ml-auto text-right">
+                  <p className="text-md"> ${item.price} </p>
+                  <p className="text-sm text-gray-500"> Qty: {item.quantity}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+            {/* Payment and Delivery Info */}
+            <div className="mb"></div>
         </div>
       )}
     </div>
