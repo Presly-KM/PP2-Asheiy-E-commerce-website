@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import PayPalButton from "./PayPalButton";            // Assuming you have a PaypalButton component
+
 const cart = {
   products: [
     {
@@ -33,9 +35,9 @@ const Checkout = () => {
     phone: "",
   });
 
-  const handleCreateCheckout =  (e) => {             // On crée ici une fonction handleCreateCheckout qui sera appelée lors de la soumission du formulaire de paiement. Cette fonction est responsable de la création d'un identifiant de paiement (checkoutId) et de la gestion des détails de livraison.
+  const handleCreateCheckout = (e) => {             // On crée ici une fonction handleCreateCheckout qui sera appelée lors de la soumission du formulaire de paiement. Cette fonction est responsable de la création d'un identifiant de paiement (checkoutId) et de la gestion des détails de livraison.
     e.preventDefault();
-    setCheckoutId(12345); // Simulate checkout ID creation
+    setCheckoutId(123); // Simulate checkout ID creation
   };
 
   const handlePaymentSuccess = (details) => {         // On crée une fonction handlePaymentSuccess qui sera appelée lorsque le paiement est réussi. Cette fonction peut être utilisée pour gérer les détails du paiement et rediriger l'utilisateur vers une page de confirmation.
@@ -160,11 +162,11 @@ const Checkout = () => {
             <label className="block text-gray-700">Phone</label>
             <input
               type="tel"
-              value={shippingAddress.address}
+              value={shippingAddress.phone}
               onChange={(e) =>
                 setShippingAddress({
                   ...shippingAddress,
-                  address: e.target.value,
+                  phone: e.target.value,
                 })
               }
               className="w-full p-2 border rounded"
@@ -182,7 +184,7 @@ const Checkout = () => {
             ) : (
                 <div>
                     <h3 className="text-lg mb-4">Pay with Paypal</h3>
-                    <PaypalButton 
+                    <PayPalButton 
                      amount={100} 
                      onSuccess={handlePaymentSuccess} 
                      onError={(err) => alert("Payment failed. Please try again.")} 
