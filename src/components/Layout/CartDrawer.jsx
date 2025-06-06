@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom"; // Importing useNavigate from re
 const CartDrawer = ({ drawerOpen, toggleCartDrawer }) => {             // Ici on reçoit deux props : drawerOpen (un booléen qui indique si le tiroir du panier est ouvert ou fermé) et toggleCartDrawer (une fonction pour basculer l'état du tiroir du panier). les accolades ({}) sont utilisées pour déstructurer les props passées au composant CartDrawer. Cela permet d'accéder directement à drawerOpen et toggleCartDrawer sans avoir à écrire props.drawerOpen et props.toggleCartDrawer.
   const navigate = useNavigate();                                      // Importing useNavigate from react-router-dom to handle navigation
   const handleCheckout = () => {
+    toggleCartDrawer();                                               // Closing the cart drawer when the checkout button is clicked
     navigate("/checkout");                                           // Navigating to the checkout page when the checkout button is clicked
   }
   return (
