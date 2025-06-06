@@ -11,6 +11,7 @@ import Checkout from "./components/Cart/Checkout";
 import OrderConfirmationPage from "./pages/OrderConfirmationPage";
 import OrderDetailsPage from "./pages/OrderDetailsPage";
 import MyOrdersPage from "./pages/MyOrdersPage";
+import AdminLayout from "./components/Admin/AdminLayout"; // Importing the AdminLayout component for admin routes
 
 const App = () => {
   return (
@@ -26,11 +27,10 @@ const App = () => {
           <Route path="product/:id" element={<ProductDetails />} /> {/* La route "product/:id" correspond à une page de détails d'un produit spécifique. Le paramètre ":id" est dynamique et peut être remplacé par l'identifiant d'un produit spécifique. Le composant ProductDetails sera affiché lorsque l'utilisateur visitera cette page. */}
           <Route path="checkout" element={<Checkout />} />       {/* La route "checkout" correspond à la page de paiement. Le composant Checkout sera affiché lorsque l'utilisateur visitera cette page. */}
           <Route path="order-confirmation" element={<OrderConfirmationPage />} /> {/* La route "order-confirmation" correspond à la page de confirmation de commande. Le composant OrderConfirmationPage sera affiché lorsque l'utilisateur visitera cette page. */}
-          <Route path="my-orders" element={<MyOrdersPage />} /> {/* La route "my-orders" correspond à la page des commandes de l'utilisateur. Le composant MyOrdersPage sera affiché lorsque l'utilisateur visitera cette page. */}
           <Route path="order/:id" element={<OrderDetailsPage />} /> {/* La route "order/:id" correspond à une page de détails d'une commande spécifique. Le paramètre ":id" est dynamique et peut être remplacé par l'identifiant d'une commande spécifique. Le composant OrderDetailsPage sera affiché lorsque l'utilisateur visitera cette page. */}
-          
+          <Route path="my-orders" element={<MyOrdersPage />} /> {/* La route "my-orders" correspond à la page des commandes de l'utilisateur. Le composant MyOrdersPage sera affiché lorsque l'utilisateur visitera cette page. */}
          </Route>
-          <Route>{ /* Admin Layout */}</Route>
+          <Route path="/admin" element={<AdminLayout />}> </Route>
       </Routes>
     </BrowserRouter>
   );
