@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useParams } from "react-router-dom"; // useParams is a hook that allows you to access the parameters of the current route.
+import { Link, useParams } from "react-router-dom"; // useParams is a hook that allows you to access the parameters of the current route.
 import { useState } from "react"; // useState is a hook that allows you to add state to your functional components.
 
 const OrderDetailsPage = () => {
@@ -7,6 +7,7 @@ const OrderDetailsPage = () => {
   const [orderDetails, setOrderDetails] = useState(null); // State to hold the order details.
 
   useEffect(() => {
+    // Ici on utilise useEffect pour simuler un appel API pour récupérer les détails de la commande. useEffect est un hook qui permet d'exécuter du code après le rendu du composant.
     const mockOrderDetails = {
       _id: id,
       createdAt: new Date(),
@@ -69,10 +70,58 @@ const OrderDetailsPage = () => {
                     : "bg-yellow-100 text-yellow-700"
                 } px-3 py-1 rounded-full text-sm font-medium mb-2`}
               >
-                {orderDetails.isDelivered ? "Delivered" : "Pending Delivery"}
+                {orderDetails.isDelivered ? "Delivered" : "Pending"}
               </span>
             </div>
           </div>
+          {/*Customer, Payment, Shipping Info*/}
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 mb-8">
+            <div>
+              <h4 className="text-lg font-semibold mb-2">Payment Info</h4>
+              <p> Payment Method: {orderDetails.paymentMethod}</p>
+              <p> Status: {orderDetails.isPaid ? "Paid" : "Unpaid"}</p>
+            </div>
+            <div>
+              <h4 className="text-lg font-semibold mb-2">Shipping Info</h4>
+              <p> Shipping Method: {orderDetails.shippingMethod}</p>
+              <p> 
+                Address: {" "}
+                {`${orderDetails.shippingAddress.city}, ${orderDetails.shippingAddress.country}`}
+                </p>
+            </div>
+          </div>
+            {/*Product List*/}
+            <div className="overflow-x-auto">
+                <h4 className="text-lg font-semibold mb-4">Products</h4>
+                <table className="min-w-full text-gray-600 mb-4"> 
+                    <thead className="bg-gray-100">
+                        <tr>
+                            <th className="py-2 px-4">Name</th>
+                            <th className="py-2 px-4">Unit Price</th>
+                            <th className="py-2 px-4">Quantity</th>
+                            <th className="py-2 px-4">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {orderDetails.orderItems.map((item) => (
+                            <tr key={item.productId} className="border-b">
+                                <td className="py-2 px-4 flex items-center">
+                                <img 
+                                  src={item.image}
+                                  alt={item.name}
+                                  className="w-12 h-12 object-cover rounded-lg mr-4"
+                                />
+                                 <Link to={`/product/${item.productId}`} 
+                                 className="text-blue-500 hover:underline"
+                                 >
+                                  {item.name}
+                                </Link>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+             </table>
+             </div>
         </div>
       )}
     </div>
