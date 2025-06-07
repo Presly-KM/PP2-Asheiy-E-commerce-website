@@ -13,6 +13,7 @@ import OrderDetailsPage from "./pages/OrderDetailsPage";
 import MyOrdersPage from "./pages/MyOrdersPage";
 import AdminLayout from "./components/Admin/AdminLayout"; // Importing the AdminLayout component for admin routes
 import AdminHomePage from "./pages/AdminHomePage";
+import UserManagement from "./components/Admin/UserManagement";
 
 const App = () => {
   return (
@@ -33,6 +34,7 @@ const App = () => {
          </Route>
           <Route path="/admin" element={<AdminLayout />}> 
           <Route index element={<AdminHomePage />} /> {/* La route index de l'admin correspond à la page d'accueil de l'administration. Le composant AdminHomePage sera affiché lorsque l'utilisateur visitera cette page. */}
+           <Route path="users" element={<UserManagement />} /> {/* La route "users" correspond à la page de gestion des utilisateurs de l'administration. Le composant UserManagement sera affiché lorsque l'utilisateur visitera cette page. */} 
           </Route>
       </Routes>
     </BrowserRouter>
