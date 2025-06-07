@@ -14,6 +14,8 @@ import MyOrdersPage from "./pages/MyOrdersPage";
 import AdminLayout from "./components/Admin/AdminLayout"; // Importing the AdminLayout component for admin routes
 import AdminHomePage from "./pages/AdminHomePage";
 import UserManagement from "./components/Admin/UserManagement";
+import ProductManagement from "./components/Admin/ProductManagement"; // Importing the ProductManagement component for managing products in the admin panel
+import EditProductPage from "./components/Admin/EditProductPage";
 
 const App = () => {
   return (
@@ -35,6 +37,8 @@ const App = () => {
           <Route path="/admin" element={<AdminLayout />}> 
           <Route index element={<AdminHomePage />} /> {/* La route index de l'admin correspond à la page d'accueil de l'administration. Le composant AdminHomePage sera affiché lorsque l'utilisateur visitera cette page. */}
            <Route path="users" element={<UserManagement />} /> {/* La route "users" correspond à la page de gestion des utilisateurs de l'administration. Le composant UserManagement sera affiché lorsque l'utilisateur visitera cette page. */} 
+           <Route path="products" element={<ProductManagement />} /> {/* La route "products" correspond à la page de gestion des produits de l'administration. Le composant ProductManagement sera affiché lorsque l'utilisateur visitera cette page. */}
+           <Route path="products/:id/edit" element={<EditProductPage />} /> {/* La route "products/:id/edit" correspond à la page d'édition d'un produit spécifique. Le paramètre ":id" est dynamique et peut être remplacé par l'identifiant d'un produit spécifique. Le composant EditProductPage sera affiché lorsque l'utilisateur visitera cette page. */}
           </Route>
       </Routes>
     </BrowserRouter>
