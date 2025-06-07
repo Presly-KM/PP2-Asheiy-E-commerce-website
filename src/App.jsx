@@ -12,6 +12,7 @@ import OrderConfirmationPage from "./pages/OrderConfirmationPage";
 import OrderDetailsPage from "./pages/OrderDetailsPage";
 import MyOrdersPage from "./pages/MyOrdersPage";
 import AdminLayout from "./components/Admin/AdminLayout"; // Importing the AdminLayout component for admin routes
+import AdminHomePage from "./pages/AdminHomePage";
 
 const App = () => {
   return (
@@ -30,7 +31,9 @@ const App = () => {
           <Route path="order/:id" element={<OrderDetailsPage />} /> {/* La route "order/:id" correspond à une page de détails d'une commande spécifique. Le paramètre ":id" est dynamique et peut être remplacé par l'identifiant d'une commande spécifique. Le composant OrderDetailsPage sera affiché lorsque l'utilisateur visitera cette page. */}
           <Route path="my-orders" element={<MyOrdersPage />} /> {/* La route "my-orders" correspond à la page des commandes de l'utilisateur. Le composant MyOrdersPage sera affiché lorsque l'utilisateur visitera cette page. */}
          </Route>
-          <Route path="/admin" element={<AdminLayout />}> </Route>
+          <Route path="/admin" element={<AdminLayout />}> 
+          <Route index element={<AdminHomePage />} /> {/* La route index de l'admin correspond à la page d'accueil de l'administration. Le composant AdminHomePage sera affiché lorsque l'utilisateur visitera cette page. */}
+          </Route>
       </Routes>
     </BrowserRouter>
   );
