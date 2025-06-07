@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+
 const EditProductPage = () => {
   const [productData, setProductData] = useState({
     name: "",
@@ -37,11 +38,16 @@ const EditProductPage = () => {
     console.log("Selected file:", file);
     }
         
+    const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("Product data submitted:", productData);
+    };
+
 
   return (
     <div className="max-w-5xl mx-auto p-6 shadow-md rounded-md">
       <h2 className="text-3xl font-bold mb-6">Edit Product</h2>
-      <form>
+      <form onSubmit={handleSubmit}>
         {/* Name */}
         <div className="mb-6">
           <label className="block font-semibold mb-2">Product Name</label>
@@ -155,6 +161,9 @@ const EditProductPage = () => {
                 ))}
             </div>
         </div>
+        <button type="submit" className="w-full bg-green-500 text-white py-2 rounded-md hover:bg-green-600 transition-colors">
+             Update Product
+        </button>
       </form>
     </div>
   );
