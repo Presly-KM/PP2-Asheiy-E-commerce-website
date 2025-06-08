@@ -57,11 +57,21 @@ const OrderManagement = () => {
                         <option value="Cancelled">Cancelled</option>
                     </select>
                   </td>
-                  <td className="p-4"></td>
+                  <td className="p-4">
+                    <button
+                      onClick={() => handleStatusChange(order._id, "Delivered")}
+                        className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+                        >
+                        Mark as Delivered
+                        </button>
+                  </td>
                 </tr>
               ))
             ) : (
               <tr>
+                <td colSpan={5} className="p-4 text-center text-gray-500">
+                    No orders found.
+                </td>
               </tr>
             )}
           </tbody>
