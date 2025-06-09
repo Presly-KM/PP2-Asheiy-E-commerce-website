@@ -89,7 +89,7 @@ export default OrderManagement;
 On commence le backend :
 
         - On va créer un API qui va être utilisé par notre app React pour commmuniquer avec le backend.
-        - Pour gérer notre app Node.js, on va utiliser la commande npm init -y pour créer un fichier package.json destiné à installer et gérer les dépendances dans notre projet.
+        - Pour gérer notre app Node.js, on va utiliser la commande npm init -y0. Cette commande va créer un fichier package.json destiné à installer et gérer les dépendances dans notre projet.
         
         - On aura besoin d'installer les dépendances suivantes :
 
