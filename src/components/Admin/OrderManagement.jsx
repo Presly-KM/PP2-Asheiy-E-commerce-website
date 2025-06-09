@@ -82,3 +82,23 @@ const OrderManagement = () => {
 };
 
 export default OrderManagement;
+
+
+/* ------- START OF BACKEND CODE -------
+
+On commence le backend :
+
+        - On va créer un API qui va être utilisé par notre app React pour commmuniquer avec le backend.
+        - Pour gérer notre app Node.js, on va utiliser la commande npm init -y pour créer un fichier package.json destiné à installer et gérer les dépendances dans notre projet.
+        
+        - On aura besoin d'installer les dépendances suivantes :
+
+           - express : pour créer notre serveur web. C'est le framework web le plus populaire pour Node.js. On va l'utiliser pour gérer les routes, les requêtes et les réponses HTTP. Notre API.
+           - mongoose : pour interagir avec MongoDB. C'est un ODM (Object Data Modeling) qui facilite la manipulation des données dans MongoDB en utilisant des modèles. Il nous permet de définir des schémas pour nos données et de les valider avant de les enregistrer dans la base de données.
+           - dotenv : pour gérer les variables d'environnement et les configurations sensibles. On va l'utiliser pour stocker des informations comme les clés API, les mots de passe, etc., sans les exposer dans le code sourcen grâce à un fichier .env.
+           - jsonwebtoken : pour gérer l'authentification JWT (JSON Web Token). C'est une méthode sécurisée pour authentifier les utilisateurs et gérer les sessions. 
+           - bcryptjs : pour le hachage des mots de passe.
+           - cors : pour gérer les requêtes cross-origin resource sharing (CORS). C'est important pour permettre à notre frontend React de communiquer avec notre backend Node.js sans problèmes de sécurité liés aux politiques de même origine. C'est à dire que notre frontend et notre backend peuvent être sur des domaines différents, mais on veut quand même qu'ils puissent communiquer entre eux. Par exemple, si notre frontend est sur http://localhost:3000 et notre backend sur http://localhost:5000, on doit configurer CORS pour autoriser les requêtes entre ces deux domaines.
+           - nodemon : pour redémarrer automatiquement le serveur lors des changements de code (en développement). Il nous aidera à ne pas avoir à redémarrer manuellement le serveur à chaque fois qu'on fait une modification dans le code.     
+        
+        */
