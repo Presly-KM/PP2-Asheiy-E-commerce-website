@@ -8,9 +8,9 @@ export default {
     },
   },
 },
-  plugins: [
-    function ({ addUtilities }) {
-      const newUtilities = {
+  plugins: [                                               
+    function ({ addUtilities }) {                              
+      const newUtilities = {                                    // On crée un objet newUtilities destiné à supprimer les barres de défilement dans les éléments HTML.
         ".no-scrollbar ::-webkit-scrollbar": {
           display: "none",
         },
